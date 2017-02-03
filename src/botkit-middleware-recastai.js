@@ -4,14 +4,14 @@ var default_language = 'en';
 
 module.exports = function (options) {
 
-    if (!options || !options.token) {
-        throw new Error('No recast.ai API token specified !');
+    if (!options || !options.request_token) {
+        throw new Error('No recast.ai API request token specified !');
     }
 
     var middleware = {};
     var language = options.language || default_language;
     var minimum_confidence = options.minimum_confidence || default_minimum_confidence;
-    var client = new Client(options.token, language);
+    var client = new recastai.Client(options.request_token, language);
 
     middleware.receive = function (bot, message, next) {
         if (message.text) {
