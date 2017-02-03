@@ -1,0 +1,31 @@
+{
+  "name": "botkit-middleware-recastai",
+  "version": "1.0.0",
+  "description": "Middleware for using Recast.ai with Botkit-powered bots",
+  "main": "src/index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ouadie-lahdioui/botkit-middleware-recastai.git"
+  },
+  "keywords": [
+    "bot",
+    "botkit",
+    "chatbot",
+    "conversation",
+    "nlp",
+    "recast"
+  ],
+  "author": "Ouadie LAHDIOUI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ouadie-lahdioui/botkit-middleware-recastai/issues"
+  },
+  "homepage": "https://github.com/ouadie-lahdioui/botkit-middleware-recastai#readme"
+}
