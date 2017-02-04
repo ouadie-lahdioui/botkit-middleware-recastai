@@ -25,7 +25,7 @@ Get your token
 
 ## Set up your Botkit based project
 
-- Add botkit-middleware-witai as a dependency to your Botkit bot :
+- Add botkit-middleware-recastai as a dependency to your Botkit bot :
 
 ```npm install --save botkit-middleware-recastai```
 
