@@ -10,7 +10,7 @@ module.exports = function (options) {
 
     var middleware = {};
     var language = options.language || default_language;
-    var minimum_confidence = options.minimum_confidence || default_minimum_confidence;
+    var minimum_confidence = options.confidence || default_minimum_confidence;
     var client = new recastai.Client(options.request_token, language);
 
     middleware.receive = function (bot, message, next) {
@@ -18,31 +18,24 @@ module.exports = function (options) {
             client.textRequest(message.text)
                 .then(function (res) {
                     console.log(JSON.stringify(res));
-                    // get the intent detected
-                    var intent = res.intent()
-
-                    // get all the location entities extracted from your text
-                    var locations = res.all('location')
-
+                    message.intents = res.intents;
+                    message.entities = res.entities;
+                    message.sentiment = res.sentiment;
+                    message.act = res.act;
                     next();
                 }).catch(function (err) {
-                    // Handle error
                     next(err);
                 });
-        } else if (message.attachments) {
-            message.intents = [];
-            next();
         } else {
             next();
         }
     };
 
-    middleware.hears = function (tests, message) {
-        if (message.entities && message.entities.intent) {
-            for (var i = 0; i < message.entities.intent.length; i++) {
-                for (var t = 0; t < tests.length; t++) {
-                    if (message.entities.intent[i].value == tests[t] &&
-                        message.entities.intent[i].confidence >= config.minimum_confidence) {
+    middleware.hears = function (patterns, message) {
+        if (message.intents) {
+            for (var i = 0; i < message.intents.length; i++) {
+                for (var t = 0; t < patterns.length; t++) {
+                    if (message.intents[i].slug == patterns[t] && message.intents[i].confidence >= minimum_confidence) {
                         return true;
                     }
                 }
