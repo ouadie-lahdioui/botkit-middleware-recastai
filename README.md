@@ -54,6 +54,7 @@ Using this middleware with Botkit causes every message sent to your bot to be fi
 	<img src="images/recast-ai-console.png">
 </p>
 
+Using the recast hears middleware tells Botkit to look for Recast intents information, and match using this information instead of the built in pattern matching function.
 
 Have fun coding your bot :)
 
