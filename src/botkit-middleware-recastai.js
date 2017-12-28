@@ -1,6 +1,7 @@
-var recastai = require('recastai');
-var default_minimum_confidence = 0.5;
-var default_language = 'en';
+const recastai = require('recastai');
+const debug = require('debug')('botkit:middleware:recastai');
+const default_minimum_confidence = 0.5;
+const default_language = 'en';
 
 module.exports = function (options) {
 
@@ -8,33 +9,33 @@ module.exports = function (options) {
         throw new Error('No recast.ai API request token specified !');
     }
 
-    var middleware = {};
-    var language = options.language || default_language;
-    var minimum_confidence = options.confidence || default_minimum_confidence;
-    var client = new recastai.Client(options.request_token, language);
+    const middleware = {};
+    const language = options.language || default_language;
+    const minimum_confidence = options.confidence || default_minimum_confidence;
+    const client = new recastai.Client(options.request_token, language);
 
     middleware.receive = function (bot, message, next) {
-        if (message.text) {
-            client.textRequest(message.text)
-                .then(function (res) {
-                    console.log(JSON.stringify(res));
-                    message.intents = res.intents;
-                    message.entities = res.entities;
-                    message.sentiment = res.sentiment;
-                    message.act = res.act;
-                    next();
-                }).catch(function (err) {
-                    next(err);
-                });
-        } else {
-            next();
-        }
+        if (!message.text) return next()
+        client.textRequest(message.text)
+            .then(function (res) {
+                debug('recastai response', res)
+                message.intents = res.intents;
+                message.entities = res.entities;
+                message.sentiment = res.sentiment;
+                message.act = res.act;
+                next();
+            }).catch(function (err) {
+                next(err);
+            });
     };
 
     middleware.hears = function (patterns, message) {
+        const intents_length = message.intents.length
+        const patterns_length = patterns.length
+
         if (message.intents) {
-            for (var i = 0; i < message.intents.length; i++) {
-                for (var t = 0; t < patterns.length; t++) {
+            for (var i = 0; i < intents_length; i++) {
+                for (var t = 0; t < patterns_length; t++) {
                     if (message.intents[i].slug == patterns[t] && message.intents[i].confidence >= minimum_confidence) {
                         return true;
                     }
