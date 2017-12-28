@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/ouadie-lahdioui/botkit-middleware-recastai#readme",
   "dependencies": {
-    "recastai": "^2.3.0",
-    "request": "^2.79.0"
+    "debug": "^3.1.0",
+    "recastai": "^2.3.0"
   },
   "directories": {
     "example": "examples"
