@@ -16,6 +16,7 @@ module.exports = function (options) {
 
     middleware.receive = function (bot, message, next) {
         if (!message.text) return next()
+
         client.textRequest(message.text)
             .then(function (res) {
                 debug('recastai response', res)
@@ -35,10 +36,8 @@ module.exports = function (options) {
 
         if (message.intents) {
             for (var i = 0; i < intents_length; i++) {
-                for (var t = 0; t < patterns_length; t++) {
-                    if (message.intents[i].slug == patterns[t] && message.intents[i].confidence >= minimum_confidence) {
-                        return true;
-                    }
+                if (patterns.indexOf(message.intents[i].slug) !== -1 && message.intents[i].confidence >= minimum_confidence) {
+                    return true;
                 }
             }
         }
