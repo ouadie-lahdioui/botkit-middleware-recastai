@@ -31,8 +31,8 @@ module.exports = function (options) {
     };
 
     middleware.hears = function (patterns, message) {
-        const intents_length = message.intents.length
-        const patterns_length = patterns.length
+        const intents_length = message.intents.length;
+        const patterns_length = patterns.length;
 
         if (message.intents) {
             for (var i = 0; i < intents_length; i++) {
