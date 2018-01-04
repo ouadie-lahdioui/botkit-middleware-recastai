@@ -1,7 +1,7 @@
-const recastai = require('recastai');
+const recastai = require('recastai').default;
 const debug = require('debug')('botkit:middleware:recastai');
 const default_minimum_confidence = 0.5;
-const default_language = 'en';
+const default_language = 'en'; // TODO: remove it since it is not used by recastai anymore
 
 module.exports = function (options) {
 
@@ -12,12 +12,12 @@ module.exports = function (options) {
     const middleware = {};
     const language = options.language || default_language;
     const minimum_confidence = options.confidence || default_minimum_confidence;
-    const client = new recastai.Client(options.request_token, language);
+    const client = new recastai.request(options.request_token);
 
     middleware.receive = function (bot, message, next) {
         if (!message.text) return next()
 
-        client.textRequest(message.text)
+        client.analyseText(message.text)
             .then(function (res) {
                 debug('recastai response', res)
                 message.intents = res.intents;
