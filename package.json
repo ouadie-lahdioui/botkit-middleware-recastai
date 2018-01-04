@@ -1,6 +1,6 @@
 {
   "name": "botkit-middleware-recastai",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Middleware for using Recast.ai with Botkit-powered bots",
   "main": "index.js",
   "scripts": {
