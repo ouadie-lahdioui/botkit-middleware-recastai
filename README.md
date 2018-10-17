@@ -18,7 +18,7 @@ You can use the Recast.AI API to analyse your text or your audio file, and extra
 
 **Get your token**  
 - In your profile, click your bot.
-- In the tab-menu, click on the the little screw.
+- In the tab-menu, click on the little screw.
 - Here is the request access token you will need to configure your bot.
 
 ## Set up your Botkit based project
